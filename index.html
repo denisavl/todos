@@ -6,7 +6,6 @@
     <title>To do list</title>
 </head>
 <body>
-    <script src="./main.js"></script>
     <div class="container">
         <header class="header">
             <div class="left-btn">
@@ -15,23 +14,23 @@
             </div>
             <div class="title">🗓️To Do List</div>
         </header>
-        <nav>
+        <nav class="side-bar" style="display:block">
             <div class="home">Home</div>
             <div class="inbox nav-icon">
-                <img src="./image/index.png" alt="index-logo">
-                <span class="index">Index</span>
+                <img src="./image/index.png" alt="inbox-logo">
+                <span class="inbox-name">Inbox</span>
             </div>
             <div class="today nav-icon">
                 <img src="./image/today.png" alt="today-logo">
-                <span class="today">Today</span>
+                <span class="today-name">Today</span>
             </div>
             <div class="next-week nav-icon">
                 <img src="./image/week.png" alt="next-week-logo">
-                <span class="next-week">Next Week</span>
+                <span class="next-week-name">Next Week</span>
             </div>
             <div class="notes nav-icon">
                 <img src="./image/notes.png" alt="notes-logo">
-                <span class="notes">Notes</span>
+                <span class="notes-name">Notes</span>
             </div>
             <div class="projects">Projects</div>
             <div class="tasks-container">
@@ -39,6 +38,11 @@
                 <span>Add Project</span>
             </div>
         </nav>
+        <div class="content">
+            <!-- <h1 class="page-title"></h1> -->
+        </div>
     </div>
+
+    <script src="./main.js"></script>
 </body>
 </html>
