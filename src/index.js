@@ -35,4 +35,9 @@ document.addEventListener("DOMContentLoaded", () => {
   notesBox.addEventListener('click', ()=>{
     createNotes();
   })
+
+  const homeBtn = document.querySelector('.home-btn');
+  homeBtn.addEventListener('click',()=>{
+    createToday();
+  })
 });

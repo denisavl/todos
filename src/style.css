@@ -10,7 +10,7 @@ body, html{
     height: 100%;
     display: grid;
     grid-template-columns: 1fr 4fr;
-    grid-template-rows: 1fr 7fr;
+    grid-template-rows: 1fr 8fr;
 }
 
 header {
@@ -18,7 +18,7 @@ header {
     display: flex;
     background-color: pink;
     align-items: center;
-    padding: 13px 25px;
+    padding-left: 25px;
 }
 
 .left-btn {
@@ -37,7 +37,21 @@ header {
 .home-btn img{
     width: 30px;
     height: 30px;
-    margin-top: 10px;
+    padding-top: 10px;
+}
+
+.right-btn{
+    display: flex;
+    align-items: center;
+    gap:10px;
+    font-size: 18px;
+    margin-right: 80px;
+    cursor: pointer;
+}
+
+.right-btn img{
+    width: 30px;
+    height: 30px;
 }
 
 .title {
@@ -45,6 +59,7 @@ header {
     text-align: center;
     font-size: 40px;
 }
+
 
 nav{
     background-color: rgba(255, 192, 203, 0.3);
@@ -66,13 +81,22 @@ nav{
 }
 
 .nav-icon:hover,
-.tasks-container:hover{
+.tasks-container:hover
+{
     background-color: #f9cad2; 
     color: white; 
     transform: scale(1.05); 
-    transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease; 
+    transition: background-color 0.3s ease, transform 0.3s ease; 
 
 }
+.burger-btn:hover,
+.home-btn:hover,
+.right-btn:hover
+{
+    transform: scale(1.05); 
+    transition: background-color 0.3s ease, transform 0.3s ease; 
+}
+
 
 .home, .projects{
     font-size: 28px;
