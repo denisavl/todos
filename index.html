@@ -1,52 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>To do list</title>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <header class="header">
-            <div class="left-btn">
-                <button class="burger-btn">☰</button>
-                <div class="home-btn"><img src="./image/home.png" alt="home-btn"></div>
-            </div>
-            <div class="title">🗓️To Do List</div>
-            <div class="right-btn new-task">
-                <img src="./image/plus.png" alt="plus-btn">
-                <span>New Task</span>
-            </div>
-        </header>
-        <nav class="side-bar" style="display:block">
-            <div class="home">Home</div>
-            <div class="inbox nav-icon">
-                <img src="./image/index.png" alt="inbox-logo">
-                <span class="inbox-name">Inbox</span>
-            </div>
-            <div class="today nav-icon">
-                <img src="./image/today.png" alt="today-logo">
-                <span class="today-name">Today</span>
-            </div>
-            <div class="next-week nav-icon">
-                <img src="./image/week.png" alt="next-week-logo">
-                <span class="next-week-name">Next Week</span>
-            </div>
-            <div class="notes nav-icon">
-                <img src="./image/notes.png" alt="notes-logo">
-                <span class="notes-name">Notes</span>
-            </div>
-            <div class="projects">Projects</div>
-            <div class="tasks-container">
-                <img src="./image/add.png" alt="add-btn">
-                <span>Add Project</span>
-            </div>
-        </nav>
-        <div class="content">
-            <!-- <h1 class="page-title"></h1> -->
+      <header class="header">
+        <div class="left-btn">
+          <button class="burger-btn">☰</button>
+          <div class="home-btn">
+            <img src="./image/home.png" alt="home-btn" />
+          </div>
         </div>
+        <div class="title">🗓️To Do List</div>
+        <div class="right-btn new-task">
+          <img src="./image/plus.png" alt="plus-btn" />
+          <span>New Task</span>
+        </div>
+      </header>
+      <nav class="side-bar" style="display: block">
+        <div class="home">Home</div>
+        <div class="inbox nav-icon">
+          <img src="./image/index.png" alt="inbox-logo" />
+          <span class="inbox-name">Inbox</span>
+        </div>
+        <div class="today nav-icon">
+          <img src="./image/today.png" alt="today-logo" />
+          <span class="today-name">Today</span>
+        </div>
+        <div class="next-week nav-icon">
+          <img src="./image/week.png" alt="next-week-logo" />
+          <span class="next-week-name">Next Week</span>
+        </div>
+        <div class="notes nav-icon">
+          <img src="./image/notes.png" alt="notes-logo" />
+          <span class="notes-name">Notes</span>
+        </div>
+        <div class="projects">Projects</div>
+        <div class="tasks-container">
+          <img src="./image/add.png" alt="add-btn" />
+          <span>Add Project</span>
+        </div>
+      </nav>
+      <div class="content"></div>
     </div>
-
+    <div class="modal">
+        <div class="modal-content">
+            <div class="top-modal">
+                <div class="title-modal">New Task</div>
+                <div class="close">X</div>
+            </div>
+          <form>
+            <div class="form-group">
+              <div class="left-modal">
+                <div class="form-row">
+                  <label for="title">Title:</label>
+                  <input
+                    type="text"
+                    name="title"
+                    id="task-title"
+                    placeholder="What to do"
+                    autocomplete="off"
+                    required
+                  />
+                </div>
+                <div class="form-row">
+                  <label for="description">Description (optional):</label>
+                  <textarea
+                    name="description"
+                    id="description"
+                    rows="4"
+                    placeholder="Some details..."
+                  ></textarea>
+                </div>
+              </div>
+              <div class="right-modal">
+                <div class="form-row">
+                  <label for="date">Date:</label>
+                  <input type="date" name="date" id="date" required />
+                </div>
+                <div class="form-row">
+                  <label for="priority">Priority:</label>
+                  <select name="priority" id="priority">
+                    <option value="low" selected>Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                  </select>
+                </div>
+                <div class="form-row">
+                  <label for="project">Project:</label>
+                  <select name="project" id="project">
+                    <option value="inbox" selected>Inbox</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="modal-buttons">
+              <button class="add-task">Add Task</button>
+              <button class="cancel-btn">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
     <script src="./main.js"></script>
-</body>
+  </body>
 </html>
