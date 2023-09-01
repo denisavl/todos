@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>To do list</title>
+    <script src="./main.js" defer></script>
   </head>
   <body>
     <div class="container">
@@ -44,7 +45,8 @@
           <span>Add Project</span>
         </div>
       </nav>
-      <div class="content"></div>
+      <div class="content">
+      </div>
     </div>
     <div class="modal">
         <div class="modal-content">
@@ -56,11 +58,11 @@
             <div class="form-group">
               <div class="left-modal">
                 <div class="form-row">
-                  <label for="title">Title:</label>
+                  <label for="title">*Title:</label>
                   <input
                     type="text"
                     name="title"
-                    id="task-title"
+                    id="title"
                     placeholder="What to do"
                     autocomplete="off"
                     required
@@ -78,19 +80,18 @@
               </div>
               <div class="right-modal">
                 <div class="form-row">
-                  <label for="date">Date:</label>
+                  <label for="date">*Date:</label>
                   <input type="date" name="date" id="date" required />
                 </div>
                 <div class="form-row">
-                  <label for="priority">Priority:</label>
+                  <label for="priority">*Priority:</label>
                   <select name="priority" id="priority">
-                    <option value="low" selected>Low</option>
-                    <option value="medium">Medium</option>
-                    <option value="high">High</option>
+                    <option value="not-important" selected>Not Important</option>
+                    <option value="important">Important</option>
                   </select>
                 </div>
                 <div class="form-row">
-                  <label for="project">Project:</label>
+                  <label for="project">*Project:</label>
                   <select name="project" id="project">
                     <option value="inbox" selected>Inbox</option>
                   </select>
@@ -104,6 +105,5 @@
           </form>
         </div>
       </div>
-    <script src="./main.js"></script>
   </body>
 </html>
