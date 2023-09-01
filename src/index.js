@@ -3,68 +3,67 @@ import { createInbox } from "./module/inbox";
 import { createToday } from "./module/today";
 import { createWeek } from "./module/nextWeek";
 import { createNotes } from "./module/notes";
+import { createTask } from "./module/createTask";
 
-function initializeApp() {
-  const toggleNav = () => {
-    const nav = document.querySelector(".side-bar");
-    const content = document.querySelector(".content");
 
-    if (nav.style.display === "none" || nav.style.display === "") {
-      nav.style.display = "block";
-      content.style.gridColumn = "2/3";
-    } else {
-      nav.style.display = "none";
-      content.style.gridColumn = "1/3";
-    }
-  };
+class App {
+  constructor() {
+    this.nav = document.querySelector(".side-bar");
+    this.content = document.querySelector(".content");
+    this.modal = document.querySelector(".modal");
 
-  const openModal = () => {
-    const modal = document.querySelector('.modal');
-    modal.style.display = 'block';
-  };
+    this.attachEventListeners();
+  }
 
-  const closeModal = () => {
-    const modal = document.querySelector('.modal');
-    modal.style.display = 'none';
-  };
+    toggleNav() {
+    this.nav.style.display = this.nav.style.display === "none" || this.nav.style.display === "" ? "block" : "none";
+    this.content.style.gridColumn = this.nav.style.display === "none" ? "1/3" : "2/3";
+  }
 
-  const attachEventListeners = () => {
+  openModal() {
+    this.modal.style.display = "block";
+  }
+
+  closeModal() {
+    this.modal.style.display = "none";
+  }
+
+  attachEventListeners() {
     const burgerBtn = document.querySelector(".burger-btn");
-    burgerBtn.addEventListener("click", toggleNav);
-
-    const newTaskBtn = document.querySelector('.new-task');
-    newTaskBtn.addEventListener('click', openModal);
-
-    const closeBtn = document.querySelector('.close');
-    closeBtn.addEventListener('click', closeModal);
-
-    const cancelBtn = document.querySelector('.cancel-btn');
-    cancelBtn.addEventListener('click', closeModal);
-
-    const modal = document.querySelector('.modal');
-    window.onclick = function(event) {
-      if (event.target == modal) {
-        closeModal();
-      }
-    };
-
+    const newTaskBtn = document.querySelector(".new-task");
+    const closeBtn = document.querySelector(".close");
+    const cancelBtn = document.querySelector(".cancel-btn");
     const inboxBox = document.querySelector(".inbox");
-    inboxBox.addEventListener("click", createInbox);
+    const todayBox = document.querySelector(".today");
+    const nextWeekBox = document.querySelector(".next-week");
+    const notesBox = document.querySelector(".notes");
+    const homeBtn = document.querySelector(".home-btn");
+    const addBtn = document.querySelector(".add-task");
 
-    const todayBox = document.querySelector('.today');
-    todayBox.addEventListener('click', createToday);
+    burgerBtn.addEventListener("click", () => this.toggleNav());
+    newTaskBtn.addEventListener("click", () => this.openModal());
+    closeBtn.addEventListener("click", () => this.closeModal());
+    cancelBtn.addEventListener("click", () => this.closeModal());
+    this.modal.addEventListener("click", (event) => {
+      if (event.target === this.modal) {
+        this.closeModal();
+      }
+    });
+    inboxBox.addEventListener("click", () => createInbox());
+    todayBox.addEventListener("click", () => createToday());
+    nextWeekBox.addEventListener("click", () => createWeek());
+    notesBox.addEventListener("click", () => createNotes());
+    homeBtn.addEventListener("click", () => createToday());
+    addBtn.addEventListener("click", (event) => {
+      event.preventDefault();
+      createTask();
+      this.closeModal();
+    });
 
-    const nextWeekBox = document.querySelector('.next-week');
-    nextWeekBox.addEventListener('click', createWeek);
-
-    const notesBox = document.querySelector('.notes');
-    notesBox.addEventListener('click', createNotes);
-
-    const homeBtn = document.querySelector('.home-btn');
-    homeBtn.addEventListener('click', createToday);
-  };
-
-  attachEventListeners();
+    inboxBox.click();
+  }
 }
 
-document.addEventListener("DOMContentLoaded", initializeApp);
+document.addEventListener("DOMContentLoaded", () => {
+  const app = new App();
+});

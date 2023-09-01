@@ -3,6 +3,9 @@ export function createToday() {
     const title = document.createElement('h1');
     title.className = 'page-title';
     title.innerHTML = 'Today';
+    const bigContainer = document.createElement('ul');
+    bigContainer.className = 'big-container';
     container.innerHTML = ''; 
     container.appendChild(title);
+    container.appendChild(bigContainer);
 }
