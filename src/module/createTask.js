@@ -1,4 +1,8 @@
-import Pen from './pen.png';
+import Pen from '../../dist/image/pen.png';
+import Delete from '../../dist/image/delete-icon.png';
+import App from '../index';
+// import { createProject } from "./createProject";
+
 class Task {
   constructor(title, description, date, priority, project) {
     this.title = title;
@@ -11,12 +15,10 @@ class Task {
 
 export function createTask() {
   const task = createTaskFromForm();
-
   const li = createTaskListItem(task);
 
   const tasksContainer = document.querySelector('.big-container');
   tasksContainer.appendChild(li);
-
   clearFormInputs();
 }
 
@@ -45,7 +47,9 @@ function createTaskListItem(task) {
   const displayDate = createDivElement('date', task.date);
   const displayPriority = createPriorityElement(task.priority);
 
-  const penIcon = createPenIcon();
+  const penIcon = createPenIcon(task);
+
+  const deleteIcon = createDeleteIcon();
 
   taskComplete.addEventListener('change', function () {
     displayTitle.style.textDecoration = taskComplete.checked ? 'line-through' : 'none';
@@ -58,6 +62,7 @@ function createTaskListItem(task) {
   li.appendChild(displayDate);
   li.appendChild(displayPriority);
   li.appendChild(penIcon);
+  li.appendChild(deleteIcon);
 
   return li;
 }
@@ -95,11 +100,88 @@ function createPriorityElement(priority) {
   return displayPriority;
 }
 
-function createPenIcon() {
+function addPenIconClickListener(penIcon, task) {
+  penIcon.addEventListener('click', () => {
+    populateModalForEdit(task);
+    const app = new App();
+    app.openModal();
+  });
+}
+
+// function populateModalForEdit(task) {
+//   const titleInput = document.querySelector("#title");
+//   const descriptionInput = document.querySelector("#description");
+//   const dateInput = document.querySelector("#date");
+//   const priorityInput = document.querySelector("#priority");
+//   const projectInput = document.querySelector("#project");
+//   const addTaskButton = document.querySelector(".add-task");
+
+//   titleInput.value = task.title;
+//   descriptionInput.value = task.description;
+//   dateInput.value = task.date;
+//   priorityInput.value = task.priority;
+//   projectInput.value = task.project;
+
+//   addTaskButton.textContent = "Update Task";
+
+//   addTaskButton.removeEventListener('click', createTask);
+
+//   addTaskButton.addEventListener('click', (event) => {
+//     event.preventDefault();
+//     updateTask(task);
+//     const app = new App();
+//     app.closeModal();
+//   });
+// }
+
+// function updateTask(task) {
+//   const updatedTitle = document.querySelector("#title").value;
+//   const updatedDescription = document.querySelector("#description").value;
+//   const updatedDate = document.querySelector("#date").value;
+//   const updatedPriority = document.querySelector("#priority").value;
+//   const updatedProject = document.querySelector("#project").value;
+
+//   task.title = updatedTitle;
+//   task.description = updatedDescription;
+//   task.date = updatedDate;
+//   task.priority = updatedPriority;
+//   task.project = updatedProject;
+// }
+
+function createPenIcon(task) {
   const penIcon = new Image();
   penIcon.src = Pen;
   penIcon.classList.add('pen');
-  return penIcon;
+
+  const penContainer = document.createElement('span');
+  penContainer.classList.add('pen-container');
+  penContainer.appendChild(penIcon);
+
+  // addPenIconClickListener(penIcon, task);
+
+  return penContainer;
+}
+
+function deleteIconAddEvent(deleteIcon){
+  deleteIcon.addEventListener('click',()=>{
+    const container = document.querySelector('.big-container');
+    const child = document.querySelector('.container-task');
+    container.removeChild(child);
+  })
+}
+
+function createDeleteIcon(){
+  const deleteIcon = new Image();
+  deleteIcon.src = Delete;
+  deleteIcon.classList.add('delete-icon');
+
+  const deleteContainer = document.createElement('span');
+  deleteContainer.classList.add('delete-container');
+  deleteContainer.appendChild(deleteIcon);
+
+  deleteIconAddEvent(deleteContainer);
+
+  return deleteContainer;
 }
 
 function clearFormInputs() {
