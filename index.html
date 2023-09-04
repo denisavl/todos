@@ -40,70 +40,92 @@
           <span class="notes-name">Notes</span>
         </div>
         <div class="projects">Projects</div>
-        <div class="tasks-container">
+        <div class="projects-container"></div>
+        <div class="add-project">
           <img src="./image/add.png" alt="add-btn" />
           <span>Add Project</span>
         </div>
       </nav>
       <div class="content">
+        <h1 class="page-title"></h1>
+        <ul class="big-container"></ul>
       </div>
     </div>
     <div class="modal">
-        <div class="modal-content">
-            <div class="top-modal">
-                <div class="title-modal">New Task</div>
-                <div class="close">X</div>
-            </div>
-          <form>
-            <div class="form-group">
-              <div class="left-modal">
-                <div class="form-row">
-                  <label for="title">*Title:</label>
-                  <input
-                    type="text"
-                    name="title"
-                    id="title"
-                    placeholder="What to do"
-                    autocomplete="off"
-                    required
-                  />
-                </div>
-                <div class="form-row">
-                  <label for="description">Description (optional):</label>
-                  <textarea
-                    name="description"
-                    id="description"
-                    rows="4"
-                    placeholder="Some details..."
-                  ></textarea>
-                </div>
-              </div>
-              <div class="right-modal">
-                <div class="form-row">
-                  <label for="date">*Date:</label>
-                  <input type="date" name="date" id="date" required />
-                </div>
-                <div class="form-row">
-                  <label for="priority">*Priority:</label>
-                  <select name="priority" id="priority">
-                    <option value="not-important" selected>Not Important</option>
-                    <option value="important">Important</option>
-                  </select>
-                </div>
-                <div class="form-row">
-                  <label for="project">*Project:</label>
-                  <select name="project" id="project">
-                    <option value="inbox" selected>Inbox</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div class="modal-buttons">
-              <button class="add-task">Add Task</button>
-              <button class="cancel-btn">Cancel</button>
-            </div>
-          </form>
+      <div class="modal-content">
+        <div class="top-modal">
+          <div class="title-modal">New Task</div>
+          <div class="close">X</div>
         </div>
+        <form>
+          <div class="form-group">
+            <div class="left-modal">
+              <div class="form-row">
+                <label for="title">*Title:</label>
+                <input
+                  type="text"
+                  name="title"
+                  id="title"
+                  placeholder="What to do"
+                  autocomplete="off"
+                  required
+                />
+              </div>
+              <div class="form-row">
+                <label for="description">Description (optional):</label>
+                <textarea
+                  name="description"
+                  id="description"
+                  rows="4"
+                  placeholder="Some details..."
+                ></textarea>
+              </div>
+            </div>
+            <div class="right-modal">
+              <div class="form-row">
+                <label for="date">*Date:</label>
+                <input type="date" name="date" id="date" required />
+              </div>
+              <div class="form-row">
+                <label for="priority">*Priority:</label>
+                <select name="priority" id="priority">
+                  <option value="not-important" selected>Not Important</option>
+                  <option value="important">Important</option>
+                </select>
+              </div>
+              <div class="form-row">
+                <label for="project">*Project:</label>
+                <select name="project" id="project">
+                  <option value="inbox" selected>Inbox</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="modal-buttons">
+            <button class="add-task">Add Task</button>
+            <button class="cancel-btn">Cancel</button>
+          </div>
+        </form>
       </div>
+    </div>
+    <div class="proj-modal">
+      <div class="proj-modal-content">
+        <div class="top-modal">
+          <div class="title-modal">New Project</div>
+          <div class="close close-proj">X</div>
+        </div>
+        <form>
+        <div class="form-row project-class">
+          <label for="name">*Name</label>
+          <input type="text" name="name" id="name" required autocomplete="off"/>
+          <div class="name-warning">*Project name is required</div>
+        </div>
+        <div class="modal-buttons">
+          <button class="add-proj">Add Project</button>
+          <button class="cancel-btn cancel-proj">Cancel</button>
+        </div>
+      </form>
+      </div>
+    </div>
   </body>
 </html>
