@@ -25,19 +25,15 @@
         <div class="home">Home</div>
         <div class="inbox nav-icon">
           <img src="./image/index.png" alt="inbox-logo" />
-          <span class="inbox-name">Inbox</span>
+          <span>Inbox</span>
         </div>
         <div class="today nav-icon">
           <img src="./image/today.png" alt="today-logo" />
-          <span class="today-name">Today</span>
+          <span>Today</span>
         </div>
         <div class="next-week nav-icon">
           <img src="./image/week.png" alt="next-week-logo" />
-          <span class="next-week-name">Next Week</span>
-        </div>
-        <div class="notes nav-icon">
-          <img src="./image/notes.png" alt="notes-logo" />
-          <span class="notes-name">Notes</span>
+          <span>Next Week</span>
         </div>
         <div class="projects">Projects</div>
         <div class="projects-container"></div>
@@ -70,6 +66,7 @@
                   autocomplete="off"
                   required
                 />
+                <div class="title-warning">*Task name is required</div>
               </div>
               <div class="form-row">
                 <label for="description">Description (optional):</label>
@@ -85,6 +82,7 @@
               <div class="form-row">
                 <label for="date">*Date:</label>
                 <input type="date" name="date" id="date" required />
+                <div class="date-warning">*Date is required</div>
               </div>
               <div class="form-row">
                 <label for="priority">*Priority:</label>
