@@ -1,7 +1,7 @@
 import Pen from '../../dist/image/pen.png';
 import Delete from '../../dist/image/delete-icon.png';
 import App from '../index';
-// import { createProject } from "./createProject";
+// import { projectList } from './createProject';
 
 class Task {
   constructor(title, description, date, priority, project) {
@@ -12,11 +12,12 @@ class Task {
     this.project = project;
   }
 }
+let taskList = [];
 
-export function createTask() {
+function createTask() {
   const task = createTaskFromForm();
   const li = createTaskListItem(task);
-
+  taskList.push(li);
   const tasksContainer = document.querySelector('.big-container');
   tasksContainer.appendChild(li);
   clearFormInputs();
@@ -28,14 +29,13 @@ function createTaskFromForm() {
   const date = document.querySelector("#date").value;
   const priority = document.querySelector("#priority").value;
   const project = document.querySelector("#project").value;
-
   return new Task(title, description, date, priority, project);
 }
 
 function createTaskListItem(task) {
   const li = document.createElement('li');
   li.className = 'container-task';
-
+  li.dataset.project = task.project;
   const taskComplete = document.createElement('input');
   taskComplete.type = 'checkbox';
 
@@ -108,46 +108,6 @@ function addPenIconClickListener(penIcon, task) {
   });
 }
 
-// function populateModalForEdit(task) {
-//   const titleInput = document.querySelector("#title");
-//   const descriptionInput = document.querySelector("#description");
-//   const dateInput = document.querySelector("#date");
-//   const priorityInput = document.querySelector("#priority");
-//   const projectInput = document.querySelector("#project");
-//   const addTaskButton = document.querySelector(".add-task");
-
-//   titleInput.value = task.title;
-//   descriptionInput.value = task.description;
-//   dateInput.value = task.date;
-//   priorityInput.value = task.priority;
-//   projectInput.value = task.project;
-
-//   addTaskButton.textContent = "Update Task";
-
-//   addTaskButton.removeEventListener('click', createTask);
-
-//   addTaskButton.addEventListener('click', (event) => {
-//     event.preventDefault();
-//     updateTask(task);
-//     const app = new App();
-//     app.closeModal();
-//   });
-// }
-
-// function updateTask(task) {
-//   const updatedTitle = document.querySelector("#title").value;
-//   const updatedDescription = document.querySelector("#description").value;
-//   const updatedDate = document.querySelector("#date").value;
-//   const updatedPriority = document.querySelector("#priority").value;
-//   const updatedProject = document.querySelector("#project").value;
-
-//   task.title = updatedTitle;
-//   task.description = updatedDescription;
-//   task.date = updatedDate;
-//   task.priority = updatedPriority;
-//   task.project = updatedProject;
-// }
-
 function createPenIcon(task) {
   const penIcon = new Image();
   penIcon.src = Pen;
@@ -157,8 +117,6 @@ function createPenIcon(task) {
   penContainer.classList.add('pen-container');
   penContainer.appendChild(penIcon);
 
-  // addPenIconClickListener(penIcon, task);
-
   return penContainer;
 }
 
@@ -167,6 +125,7 @@ function deleteIconAddEvent(deleteIcon){
     const container = document.querySelector('.big-container');
     const child = document.querySelector('.container-task');
     container.removeChild(child);
+    taskList.pop();
   })
 }
 
@@ -191,3 +150,5 @@ function clearFormInputs() {
   document.querySelector("#priority").value = 'not-important';
   document.querySelector("#project").value = 'inbox';
 }
+
+export { taskList, createTask};

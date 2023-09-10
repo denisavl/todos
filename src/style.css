@@ -5,6 +5,7 @@ body, html {
     margin: 0;
     font-family: 'Acme', sans-serif;
     height: 100%;
+    min-width: 800px; 
 }
 
 /* Grid container styles */
@@ -254,7 +255,9 @@ textarea:focus {
 }
 
 /* Input validation warning styles */
-.name-warning {
+.name-warning,
+.title-warning,
+.date-warning {
     color: rgb(178, 4, 4);
     display: none;
     font-size: 14px;
