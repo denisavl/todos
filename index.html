@@ -50,7 +50,7 @@
     <div class="modal">
       <div class="modal-content">
         <div class="top-modal">
-          <div class="title-modal">New Task</div>
+          <div class="title-modal-task">New Task</div>
           <div class="close">X</div>
         </div>
         <form>
@@ -64,7 +64,6 @@
                   id="title"
                   placeholder="What to do"
                   autocomplete="off"
-                  required
                 />
                 <div class="title-warning">*Task name is required</div>
               </div>
@@ -81,7 +80,7 @@
             <div class="right-modal">
               <div class="form-row">
                 <label for="date">*Date:</label>
-                <input type="date" name="date" id="date" required />
+                <input type="date" name="date" id="date"/>
                 <div class="date-warning">*Date is required</div>
               </div>
               <div class="form-row">
@@ -101,6 +100,7 @@
           </div>
           <div class="modal-buttons">
             <button class="add-task">Add Task</button>
+            <button class="update-task" style="display: none;" type="button">Update Task</button>
             <button class="cancel-btn">Cancel</button>
           </div>
         </form>
@@ -109,18 +109,18 @@
     <div class="proj-modal">
       <div class="proj-modal-content">
         <div class="top-modal">
-          <div class="title-modal">New Project</div>
+          <div class="title-modal-project">New Project</div>
           <div class="close close-proj">X</div>
         </div>
         <form>
         <div class="form-row project-class">
           <label for="name">*Name</label>
-          <input type="text" name="name" id="name" required autocomplete="off"/>
+          <input type="text" name="name" id="name" autocomplete="off"/>
           <div class="name-warning">*Project name is required</div>
         </div>
         <div class="modal-buttons">
           <button class="add-proj">Add Project</button>
-          <button class="cancel-btn cancel-proj">Cancel</button>
+          <button class="cancel-proj">Cancel</button>
         </div>
       </form>
       </div>
