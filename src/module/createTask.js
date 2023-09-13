@@ -1,7 +1,6 @@
 import Pen from '../../dist/image/pen.png';
 import Delete from '../../dist/image/delete-icon.png';
-import App from '../index';
-// import { projectList } from './createProject';
+import App from './app';
 
 class Task {
   constructor(title, description, date, priority, project) {
@@ -13,13 +12,38 @@ class Task {
   }
 }
 let taskList = [];
+let editingTask = null;
+
+// window.addEventListener('load', function() {
+//   if (localStorage.getItem('tasks')) {
+//     taskList = JSON.parse(localStorage.getItem('tasks'));
+//     taskList.forEach(function(task) {
+//       const li = createTaskListItem(task);
+//       const tasksContainer = document.querySelector('.big-container');
+//       tasksContainer.appendChild(li);
+//     });
+//   }
+// });
 
 function createTask() {
   const task = createTaskFromForm();
-  const li = createTaskListItem(task);
-  taskList.push(li);
-  const tasksContainer = document.querySelector('.big-container');
-  tasksContainer.appendChild(li);
+  if (editingTask) {
+    editingTask.title = task.title;
+    editingTask.description = task.description;
+    editingTask.date = task.date;
+    editingTask.priority = task.priority;
+    editingTask.project = task.project;
+    clearFormInputs();
+    document.querySelector('.title-modal-task').textContent = 'New Task';
+    document.querySelector('.add-task').textContent = 'Add Task';
+    editingTask = null;
+  } else {
+    const li = createTaskListItem(task);
+    taskList.push(li);
+    const tasksContainer = document.querySelector('.big-container');
+    tasksContainer.appendChild(li);
+    // localStorage.setItem('tasks', JSON.stringify(taskList));
+  }
   clearFormInputs();
 }
 
@@ -102,8 +126,14 @@ function createPriorityElement(priority) {
 
 function addPenIconClickListener(penIcon, task) {
   penIcon.addEventListener('click', () => {
+    editingTask = task; 
     const app = new App();
     app.openModal();
+    const modalTitle = document.querySelector('.title-modal-task');
+    const addButton = document.querySelector('.add-task');
+    modalTitle.textContent = 'Edit Task';
+    addButton.style.display = 'none';
+    document.querySelector('.update-task').style.display = 'block';
   });
 }
 
@@ -116,25 +146,20 @@ function createPenIcon(task) {
   penContainer.classList.add('pen-container');
   penContainer.appendChild(penIcon);
 
+  addPenIconClickListener(penContainer, task);
+
   return penContainer;
 }
 
-function editTask(){
-  const titleInput = document.querySelector('#title').value;
-  const descriptionInput = document.querySelector('#description').value;
-  const dateInput = document.querySelector('#date').value;
-  const priorityInput = document.querySelector('#priority').value;
-  const projectInput = document.querySelector('#project').value;
-
-  
-}
-
-function deleteIconAddEvent(deleteIcon){
-  deleteIcon.addEventListener('click',()=>{
+function deleteIconAddEvent(deleteIcon) {
+  deleteIcon.addEventListener('click', (event) => {
+    const deleteContainer = event.target.closest('.container-task');
     const container = document.querySelector('.big-container');
-    const child = document.querySelector('.container-task');
-    container.removeChild(child);
-    taskList.pop();
+    container.removeChild(deleteContainer);
+    const index = taskList.findIndex((task) => task === deleteContainer.dataset.task);
+    if (index !== -1) {
+      taskList.splice(index, 1);
+    }
   })
 }
 
@@ -160,4 +185,4 @@ function clearFormInputs() {
   document.querySelector("#project").value = 'inbox';
 }
 
-export { taskList, createTask};
+export { taskList, createTask, editingTask, createTaskFromForm, clearFormInputs};

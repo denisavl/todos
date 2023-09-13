@@ -1,4 +1,4 @@
-import { createTask, taskList } from "./createTask";
+import { createTask, taskList, editingTask, createTaskFromForm, clearFormInputs } from "./createTask";
 import { createProject } from "./createProject";
 
 class App {
@@ -30,13 +30,40 @@ class App {
   }
 
   openModal() {
-    this.modal.style.display = "block";
-    this.titleTaskError.display = "none";
-    this.dateTaskError.display = "none";
+    this.modal.style.display = 'block';
+    this.titleTaskError.display = 'none';
+    this.dateTaskError.display = 'none';
+
+    if (editingTask) {
+      document.querySelector('#title').value = editingTask.title;
+      document.querySelector('#description').value = editingTask.description;
+      document.querySelector('#date').value = editingTask.date;
+      document.querySelector('#priority').value = editingTask.priority;
+      document.querySelector('#project').value = editingTask.project;
+      document.querySelector('.title-modal-task').textContent = 'Edit Task';
+
+      document.querySelector('.update-task').style.display = 'block';
+      document.querySelector('.add-task').style.display = 'none';
+    } else {
+      document.querySelector('#title').value = '';
+      document.querySelector('#description').value = '';
+      document.querySelector('#date').value = '';
+      document.querySelector('#priority').value = 'not-important';
+      document.querySelector('#project').value = 'inbox';
+      document.querySelector('.title-modal-task').textContent = 'New Task';
+
+      document.querySelector('.add-task').style.display = 'block';
+      document.querySelector('.update-task').style.display = 'none';
+    }
   }
 
   closeModal() {
     this.modal.style.display = "none";
+
+    clearFormInputs();
+    document.querySelector('.title-modal-task').textContent = 'New Task';
+    document.querySelector('.add-task').textContent = 'Add Task';
+    editingTask = null;
   }
 
   openProjModal() {
@@ -48,6 +75,64 @@ class App {
     this.projModal.style.display = "none";
   }
 
+  handleAddBtn(event){
+    event.preventDefault();
+    if (
+      this.titleTaskInput.value.trim() === "" &&
+      this.dateTaskInput.value.trim() === ""
+    ) {
+      this.titleTaskError.style.display = "block";
+      this.dateTaskError.style.display = "block";
+    } else if (this.titleTaskInput.value.trim() === "") {
+      this.titleTaskError.style.display = "block";
+      this.dateTaskError.style.display = "none";
+    } else if (this.dateTaskInput.value.trim() === "") {
+      this.titleTaskError.style.display = "none";
+      this.dateTaskError.style.display = "block";
+    } else {
+      this.titleTaskError.style.display = "none";
+      this.dateTaskError.style.display = "none";
+      createTask();
+      this.closeModal();
+    }
+  }
+
+  handleUpdateTask(event) {
+    event.preventDefault();
+  
+    const updatedTask = createTaskFromForm(); 
+  
+    if (editingTask) {
+      editingTask.title = updatedTask.title;
+      editingTask.description = updatedTask.description;
+      editingTask.date = updatedTask.date;
+      editingTask.priority = updatedTask.priority;
+      editingTask.project = updatedTask.project;
+
+      const taskElement = taskList.find((task) => task.dataset.project === editingTask.project);
+      if (taskElement) {
+        const titleElement = taskElement.querySelector('.title-task');
+        const descriptionElement = taskElement.querySelector('.description-task');
+        const dateElement = taskElement.querySelector('.date');
+        const priorityElement = taskElement.querySelector('.diamond');
+  
+        titleElement.textContent = editingTask.title;
+        descriptionElement.textContent = editingTask.description;
+        dateElement.textContent = editingTask.date;
+
+        priorityElement.textContent = "\u25C6";
+        priorityElement.classList.remove('important', 'not-important');
+        if (editingTask.priority === 'important') {
+          priorityElement.classList.add('important');
+        } else {
+          priorityElement.classList.add('not-important');
+        }
+  
+        this.closeModal();
+      }
+    }
+  }
+ 
   attachEventListeners() {
     const burgerBtn = document.querySelector(".burger-btn");
     const newTaskBtn = document.querySelector(".new-task");
@@ -78,27 +163,7 @@ class App {
     });
     homeBtn.addEventListener("click", () => this.updateContent("Inbox"));
     addProj.addEventListener("click", () => this.openProjModal());
-    addBtn.addEventListener("click", (event) => {
-      event.preventDefault();
-      if (
-        this.titleTaskInput.value.trim() === "" &&
-        this.dateTaskInput.value.trim() === ""
-      ) {
-        this.titleTaskError.style.display = "block";
-        this.dateTaskError.style.display = "block";
-      } else if (this.titleTaskInput.value.trim() === "") {
-        this.titleTaskError.style.display = "block";
-        this.dateTaskError.style.display = "none";
-      } else if (this.dateTaskInput.value.trim() === "") {
-        this.titleTaskError.style.display = "none";
-        this.dateTaskError.style.display = "block";
-      } else {
-        this.titleTaskError.style.display = "none";
-        this.dateTaskError.style.display = "none";
-        createTask();
-        this.closeModal();
-      }
-    });
+    addBtn.addEventListener("click", () => this.handleAddBtn(event));
     addProjBtn.addEventListener("click", (event) => {
       event.preventDefault();
       if (this.projectInput.value.trim() === "") {
@@ -117,6 +182,10 @@ class App {
     document.querySelector(".next-week").addEventListener("click", () => {
       this.updateContent("Next Week");
     });
+
+  document.querySelector('.update-task').addEventListener('click', () => {
+    this.handleUpdateTask(event);
+  });
   }
   updateContent(category) {
     const pageTitle = document.querySelector(".page-title");
@@ -125,7 +194,6 @@ class App {
     pageTitle.textContent = category;
 
     tasksContainer.innerHTML = "";
-
     if (category === "Inbox") {
       taskList.forEach((task) => {
         tasksContainer.appendChild(task);

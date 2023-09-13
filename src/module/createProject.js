@@ -23,6 +23,7 @@ class ProjectList {
     }
   }
 }
+const projectList = new ProjectList();
 
 class UI {
   static createProjectFromForm() {
@@ -99,11 +100,19 @@ class UI {
       option.value = project.name;
       option.text = project.name;
       projectSelect.appendChild(option);
+      saveProjectsToLocalStorage(projectList);
     });
+    saveProjectsToLocalStorage(projectList);
   }
 }
+if (localStorage.getItem('projects')) {
+  projectList.projects = JSON.parse(localStorage.getItem('projects'));
+}
 
-const projectList = new ProjectList();
+function saveProjectsToLocalStorage(projects) {
+  localStorage.setItem('projects', JSON.stringify(projects)); // Save projects to localStorage
+}
+
 
 export function createProject() {
   const container = document.querySelector(".projects-container");
@@ -115,3 +124,17 @@ export function createProject() {
   UI.clearFormInput();
   UI.updateProjectOptions(projectList.projects);
 }
+
+function loadProjectsFromLocalStorage() {
+  if (localStorage.getItem('projects')) {
+    projectList.projects = JSON.parse(localStorage.getItem('projects'));
+    projectList.projects.forEach((project) => {
+      const container = document.querySelector(".projects-container");
+      const projDiv = UI.createProjectListItem(project);
+      container.appendChild(projDiv);
+    });
+    UI.updateProjectOptions(projectList.projects);
+  }
+}
+
+window.addEventListener('load', loadProjectsFromLocalStorage);

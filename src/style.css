@@ -241,7 +241,8 @@ textarea {
 }
 
 /* Title modal styles */
-.title-modal {
+.title-modal-task,
+.title-modal-project {
     padding-bottom: 15px;
 }
 
@@ -290,7 +291,11 @@ textarea:focus {
 }
 
 /* Button styles */
-.add-task, .cancel-btn, .add-proj {
+.add-task, 
+.cancel-btn, 
+.add-proj, 
+.update-task,
+.cancel-proj {
     padding: 8px 15px;
     font-size: 17px;
     border-radius: 3px;
@@ -298,22 +303,25 @@ textarea:focus {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.add-task, .add-proj {
+.add-task, .add-proj, .update-task {
     color: white;
     background-color: rgb(177, 21, 47);
     border: transparent;
 }
 
-.cancel-btn {
+.cancel-btn,
+.cancel-proj {
     border: 1px solid black;
     background-color: #ccc3c338;
 }
 
-.add-task:hover {
+.add-task:hover,
+.update-task:hover {
     background-color: rgb(255, 153, 170);
 }
 
-.cancel-btn:hover {
+.cancel-btn:hover,
+.cancel-proj:hover {
     background-color: #b9b6b6;
     color: white;
     border: transparent;
