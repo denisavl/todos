@@ -102,7 +102,6 @@ function createPriorityElement(priority) {
 
 function addPenIconClickListener(penIcon, task) {
   penIcon.addEventListener('click', () => {
-    populateModalForEdit(task);
     const app = new App();
     app.openModal();
   });
@@ -118,6 +117,16 @@ function createPenIcon(task) {
   penContainer.appendChild(penIcon);
 
   return penContainer;
+}
+
+function editTask(){
+  const titleInput = document.querySelector('#title').value;
+  const descriptionInput = document.querySelector('#description').value;
+  const dateInput = document.querySelector('#date').value;
+  const priorityInput = document.querySelector('#priority').value;
+  const projectInput = document.querySelector('#project').value;
+
+  
 }
 
 function deleteIconAddEvent(deleteIcon){
