@@ -8,4 +8,5 @@ The To-Do List Web Application is a simple and intuitive task management tool th
 - CSS3
 - JavaScript (ES6)
 - LocalStorage for data persistence
+
 Live: https://denisavl.github.io/todos/
