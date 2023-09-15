@@ -110,7 +110,7 @@ if (localStorage.getItem('projects')) {
 }
 
 function saveProjectsToLocalStorage(projects) {
-  localStorage.setItem('projects', JSON.stringify(projects)); // Save projects to localStorage
+  localStorage.setItem('projects', JSON.stringify(projects));
 }
 
 

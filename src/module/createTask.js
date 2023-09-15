@@ -14,17 +14,6 @@ class Task {
 let taskList = [];
 let editingTask = null;
 
-// window.addEventListener('load', function() {
-//   if (localStorage.getItem('tasks')) {
-//     taskList = JSON.parse(localStorage.getItem('tasks'));
-//     taskList.forEach(function(task) {
-//       const li = createTaskListItem(task);
-//       const tasksContainer = document.querySelector('.big-container');
-//       tasksContainer.appendChild(li);
-//     });
-//   }
-// });
-
 function createTask() {
   const task = createTaskFromForm();
   if (editingTask) {
@@ -38,11 +27,11 @@ function createTask() {
     document.querySelector('.add-task').textContent = 'Add Task';
     editingTask = null;
   } else {
-    const li = createTaskListItem(task);
+    const index = taskList.length;
+    const li = createTaskListItem(task, index);
     taskList.push(li);
     const tasksContainer = document.querySelector('.big-container');
     tasksContainer.appendChild(li);
-    // localStorage.setItem('tasks', JSON.stringify(taskList));
   }
   clearFormInputs();
 }
@@ -56,10 +45,11 @@ function createTaskFromForm() {
   return new Task(title, description, date, priority, project);
 }
 
-function createTaskListItem(task) {
+function createTaskListItem(task, index) {
   const li = document.createElement('li');
   li.className = 'container-task';
   li.dataset.project = task.project;
+  li.dataset.taskIndex = index;
   const taskComplete = document.createElement('input');
   taskComplete.type = 'checkbox';
 
@@ -126,7 +116,7 @@ function createPriorityElement(priority) {
 
 function addPenIconClickListener(penIcon, task) {
   penIcon.addEventListener('click', () => {
-    editingTask = task; 
+    editingTask = task;
     const app = new App();
     app.openModal();
     const modalTitle = document.querySelector('.title-modal-task');
@@ -153,17 +143,19 @@ function createPenIcon(task) {
 
 function deleteIconAddEvent(deleteIcon) {
   deleteIcon.addEventListener('click', (event) => {
+    const app = new App();
     const deleteContainer = event.target.closest('.container-task');
+    const index = deleteContainer.dataset.taskIndex;
+    if (index !== undefined) {
+      taskList.splice(index, 1);
+      app.saveTasksToLocalStorage();
+    }
     const container = document.querySelector('.big-container');
     container.removeChild(deleteContainer);
-    const index = taskList.findIndex((task) => task === deleteContainer.dataset.task);
-    if (index !== -1) {
-      taskList.splice(index, 1);
-    }
-  })
+  });
 }
 
-function createDeleteIcon(){
+function createDeleteIcon() {
   const deleteIcon = new Image();
   deleteIcon.src = Delete;
   deleteIcon.classList.add('delete-icon');
@@ -185,4 +177,11 @@ function clearFormInputs() {
   document.querySelector("#project").value = 'inbox';
 }
 
-export { taskList, createTask, editingTask, createTaskFromForm, clearFormInputs};
+export {
+  taskList,
+  createTask,
+  editingTask,
+  createTaskFromForm,
+  clearFormInputs,
+  createTaskListItem
+};
