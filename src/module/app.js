@@ -29,12 +29,13 @@ class App {
   }
 
   toggleNav() {
-    this.nav.style.display =
-      this.nav.style.display === "none" || this.nav.style.display === ""
-        ? "block"
-        : "none";
-    this.content.style.gridColumn =
-      this.nav.style.display === "none" ? "1/3" : "2/3";
+    this.nav.classList.toggle('show');
+    this.content.style.gridColumn = this.nav.classList.contains('show') ? '2/3' : '1/3';
+    if (this.nav.classList.contains('show')) {
+      this.nav.style.display = 'block';
+    } else {
+      this.nav.style.display = 'none';
+    }
   }
 
   openModal() {
