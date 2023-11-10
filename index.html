@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>To do list</title>
     <script src="./main.js" defer></script>
+    <link rel="icon" href="./image/logo.png" type="icon">
   </head>
   <body>
     <div class="container">
@@ -21,7 +22,7 @@
           <span>New Task</span>
         </div>
       </header>
-      <nav class="side-bar" style="display: block">
+      <nav class="side-bar show">
         <div class="home">Home</div>
         <div class="inbox nav-icon">
           <img src="./image/index.png" alt="inbox-logo" />
@@ -64,6 +65,7 @@
                   id="title"
                   placeholder="What to do"
                   autocomplete="off"
+                  maxlength="20"
                 />
                 <div class="title-warning">*Task name is required</div>
               </div>
@@ -74,6 +76,7 @@
                   id="description"
                   rows="4"
                   placeholder="Some details..."
+                  maxlength="30"
                 ></textarea>
               </div>
             </div>
@@ -100,7 +103,7 @@
           </div>
           <div class="modal-buttons">
             <button class="add-task">Add Task</button>
-            <button class="update-task" style="display: none;" type="button">Update Task</button>
+            <button class="update-task" type="button">Update Task</button>
             <button class="cancel-btn">Cancel</button>
           </div>
         </form>
