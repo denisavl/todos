@@ -1,7 +1,7 @@
 import Pen from '../../dist/image/pen.png';
 import Delete from '../../dist/image/delete-icon.png';
 import App from './app';
-
+import { format } from 'date-fns';
 class Task {
   constructor(title, description, date, priority, project) {
     this.title = title;
@@ -58,7 +58,8 @@ function createTaskListItem(task, index) {
 
   const displayTitle = createDivElement('title-task', task.title);
   const displayDescription = createDivElement('description-task', task.description);
-  const displayDate = createDivElement('date', task.date);
+  const formattedDate = format(new Date(task.date), 'dd MMM yyyy');
+  const displayDate = createDivElement('date', formattedDate);
   const displayPriority = createPriorityElement(task.priority);
 
   const penIcon = createPenIcon(task);
